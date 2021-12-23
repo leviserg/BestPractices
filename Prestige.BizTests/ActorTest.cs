@@ -99,5 +99,20 @@ namespace Prestige.BizTests
 
         }
 
+        [TestMethod]
+        public void TestGetAgency()
+        {
+            // Arrange
+            var actor = new Actor { ActorName = "Jack Reacher", ActorDescription = "Initial description" };
+            string expected = "Not default agency"; // "Talent Agency";
+
+            // Act
+            string actual = actor.GetAgency();
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
     }
 }

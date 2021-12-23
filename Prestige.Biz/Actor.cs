@@ -19,6 +19,7 @@ namespace Prestige.Biz
         public Actor()
         {
             Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} : default ctor has been called");
+            //this.AgentAgency = new Agency(); // if ALWAYS needed in this object in class, BUT this will waist resources
         }
 
         public Actor(string actorName) : this() // call default constructor and using property instead of parameter 
@@ -48,6 +49,23 @@ namespace Prestige.Biz
         }
 
         public string ActorDescription { get; set; } = "Regular Actor"; // property initializer
+
+        private Agency actorAgency;
+
+        public Agency ActorAgency
+        {
+            get {
+                /*
+                if (agentAgency is null)
+                {
+                    agentAgency = new Agency(); // Lazy Loading !!! needed SOMETIMES
+                }
+                return agentAgency;
+                */
+                return actorAgency ??= new Agency { Name = "Not default agency"};
+            }
+            set { actorAgency = value; }
+        }
 
 
         /// <summary>
@@ -82,6 +100,13 @@ namespace Prestige.Biz
                 return $"Actor {ActorName} is booked on {requestDate}. {details}";
             }
             return $"Actor {ActorName} is booked. {details}";
+        }
+
+        public string GetAgency()
+        {
+            // Agency agency = new Agency(); // if Needed ONCE
+            // return agency.Name;
+            return ActorAgency.Name; // use another object as property if needed ALWAYS
         }
     }
 }
